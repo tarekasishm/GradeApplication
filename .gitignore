@@ -39,4 +39,5 @@
 
 .project
 .cproject
+.settings
 # End of https://www.gitignore.io/api/eclipse
