@@ -1,0 +1,67 @@
+# Alumno (id, Nombre, 1er Apellido, 2º Apellido, email)
+1, Ainara, Saroe, Urrutia, asaroe@ariketa.eus
+2, Iker, Ordoiza, Lazkano, iordoiza@ariketa.eus 
+3, Asier, Abiaga, Lasarte, aabiaga@ariketa.eus
+4, Nerea, Zubillaga, Garin, nzubillaga@ariketa.eus
+
+# Curso (id, nombre)
+1, Curso de iniciación
+2, Curso avanzado
+
+# Asignatura (id, curso_id, nombre)
+1, 1, Algoritmia
+2, 1, Matemáticas
+3, 1, Física
+4, 1, Electricidad
+5, 1, Dibujo
+6, 2, Programación Web
+7, 2, Estadística
+8, 2, Química
+9, 2, Electrónica
+10, 2, CAD
+
+# Notas (alumno_id, asignatura_id, nota)
+1, 1, 0
+1, 2, 3
+1, 3, 2
+1, 4, 9
+1, 5, 3
+1, 6, 5
+1, 7, 7
+1, 8, 4
+1, 9, 7
+1, 10, 6
+
+2, 1, 5
+2, 2, 8
+2, 3, 1
+2, 4, 1
+2, 5, 9
+2, 6, 10
+2, 7, 2
+2, 8, 7
+2, 9, 7
+2, 10, 6
+
+3, 1, 8
+3, 2, 0
+3, 3, 0
+3, 4, 7
+3, 5, 9
+3, 6, 10
+3, 7, 10
+3, 8, 2
+3, 9, 5
+3, 10, 5
+
+4, 1, 0
+4, 2, 2
+4, 3, 8
+4, 4, 0
+4, 5, 6
+4, 6, 2
+4, 7, 4
+4, 8, 1
+4, 9, 4
+4, 10, 10
+
