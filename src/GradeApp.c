@@ -107,7 +107,11 @@ void showMenu(){
 		case '6':
 			printf("Student name: ");
 			getOpcion(opcion1);
-			DAO_borratAlumno(opcion1);
+			if(DAO_borratAlumno(opcion1) != -1){
+				printf("Student deleted\n");
+			}else{
+				printf("Studnet not found\n");
+			}
 			break;
 		case 'q':
 			break;

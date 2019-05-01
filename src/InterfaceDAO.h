@@ -42,7 +42,7 @@ typedef struct{
 }curso_t;
 
 alumno_t *DAO_getAlumno(char *nombreCompleto);
-void DAO_borratAlumno(char *nombreCompleto);
+int DAO_borratAlumno(char *nombreCompleto);
 asignatura_t **DAO_getAsignatura();
 
 
