@@ -28,43 +28,43 @@ void showMenu(){
 	int curso = 0, n = 0;
 	float notaMedia = 0.0;
 	do{
-		printf("-----------Aplicacion de notas-----------\n");
-		printf("\t 1. Obtener notas por alumno\n");
-		printf("\t 2. Nota por asignatura por alumno\n");
-		printf("\t 3. Nota media de una asignatura\n");
-		printf("\t 4. Nota media por asignaturas\n");
-		printf("\t 5. Nota media por curso\n");
-		printf("\t q. Salir\n");
+		printf("-----------GRADE APPLICATION-----------\n");
+		printf("\t 1. Get student grades\n");
+		printf("\t 2. Get a student grade\n");
+		printf("\t 3. Get a subject average grade\n");
+		printf("\t 4. Get subjects average grades\n");
+		printf("\t 5. Get a course average grade\n");
+		printf("\t q. Exit\n");
 		scanf("%c", &arg);
 		while(getchar() != '\n');
 		switch(arg){
 		case '1':
-			printf("Introduce nombre de alumno\n");
+			printf("Student name\n");
 			getOpcion(opcion1);
 			alumno = DAO_getAlumno(opcion1);
 			if(alumno->numeroAsignaturas != 0){
 				for(int i = 0; i < alumno->numeroAsignaturas; i++){
-					printf("Asignatura: %18s nota: %d\n",
+					printf("Subject: %18s Grade: %d\n",
 										alumno->asignatura[i].nombre,
 										alumno->asignatura[i].nota);
 				}
 			}else {
-				printf("El alumno indicado no está registrado\n");
+				printf("Student does not exist\n");
 			}
 			free(alumno);
 			break;
 		case '2':
-			printf("Introduce nombre de alumno: ");
+			printf("Student name: ");
 			getOpcion(opcion1);
-			printf("Introduce nombre de la asignatura: ");
+			printf("Subject name: ");
 			getOpcion(opcion2);
 			alumno = DAO_getAlumno(opcion1);
 			int i = buscarAsignatura(opcion2, alumno);
 			if(alumno->id == -1){
-				printf("Alumno no matriculado en el centro\n");
+				printf("Student does not exist\n");
 			}else{
 				if(i != -1){
-					printf("Asignatura: %s nota: %d\n", alumno->asignatura[i].nombre,
+					printf("Subject: %s grade: %d\n", alumno->asignatura[i].nombre,
 							alumno->asignatura[i].nota);
 				}else{
 					printf("Alumno no matriculado de la asignatura\n");
@@ -74,11 +74,11 @@ void showMenu(){
 					break;
 		case '3':
 			asignaturas = DAO_getAsignatura();
-			printf("Introduzca asignatura: ");
+			printf("Subject name: ");
 			getOpcion(opcion2);
 			for(int i = 0; i < MAX_ASIGNATURA; i++){
 				if(strcmp(opcion2, asignaturas[i]->nombre) == 0){
-					printf("Nota media: %2d Asignatura: %s\n", asignaturas[i]->nota, asignaturas[i]->nombre);
+					printf("Average grade: %2d Subject: %s\n", asignaturas[i]->nota, asignaturas[i]->nombre);
 				}
 			}
 			for(int i = 0; i < MAX_ASIGNATURA; i++){
@@ -89,7 +89,7 @@ void showMenu(){
 		case '4':
 			asignaturas = DAO_getAsignatura();
 			for(int i = 0; i < MAX_ASIGNATURA; i++){
-				printf("Nota media: %2d Asignatura: %s\n", asignaturas[i]->nota, asignaturas[i]->nombre);
+				printf("Average grade: %2d Subject: %s\n", asignaturas[i]->nota, asignaturas[i]->nombre);
 			}
 			for(int i = 0; i < MAX_ASIGNATURA; i++){
 				free(asignaturas[i]);
@@ -98,7 +98,7 @@ void showMenu(){
 					break;
 		case '5':
 			asignaturas = DAO_getAsignatura();
-			printf("Introduzca curso ");
+			printf("Course: ");
 			getOpcion(opcion2);
 			notaMedia = 0;
 			n = 0;
@@ -110,12 +110,12 @@ void showMenu(){
 				}
 			}
 			notaMedia = notaMedia / n;
-			printf("La nota media del curso %d es %f\n", curso, notaMedia);
+			printf("Course average grade %d es %f\n", curso, notaMedia);
 					break;
 		case 'q':
 			break;
 		default:
-			printf("Introduce una opción válida\n");
+			printf("Select a valid option.\n");
 		}
 	}while(arg != 'q');
 }
@@ -136,10 +136,10 @@ int login(){
 	int result = -1, intentos = 0;
 	char user[128], paswd[128];
 	do{
-		printf("Introduzca usuario: ");
+		printf("User: ");
 		getOpcion(user);
 		if(strcmp(user, "admin") == 0){
-			printf("Introduzca password: ");
+			printf("Password: ");
 			getOpcion(paswd);
 			if(strcmp(paswd, "admin") != 0){
 				intentos++;
