@@ -99,7 +99,7 @@ void FileService_getAsignaturasInfo(FILE *fp, asignatura_t **asignaturas){
 		if(isNotNull(id) && isNotNull(cursoId) && isNotNull(nombre)){
 			asignaturas[i]->id = strtol(id, 0, 10);
 			asignaturas[i]->cursoId = strtol(cursoId, 0, 10);
-			strcpy(asignaturas[i]->nombre, nombre);
+			strcpy(asignaturas[i]->nombre, nombre + 1);
 			i++;
 		}
 	}while(linea[0] != '#' && feof(fp) == 0 && i < MAX_ASIGNATURA);

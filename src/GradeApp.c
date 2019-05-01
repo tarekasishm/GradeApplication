@@ -77,7 +77,7 @@ void showMenu(){
 			printf("Introduzca asignatura: ");
 			getOpcion(opcion2);
 			for(int i = 0; i < MAX_ASIGNATURA; i++){
-				if(strcmp(opcion2, asignaturas[i]->nombre+1) == 0){
+				if(strcmp(opcion2, asignaturas[i]->nombre) == 0){
 					printf("Nota media: %2d Asignatura: %s\n", asignaturas[i]->nota, asignaturas[i]->nombre);
 				}
 			}
