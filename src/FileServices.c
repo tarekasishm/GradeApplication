@@ -45,16 +45,21 @@ void p(char *s);
  ***************************************************************/
 alumno_t *DAO_getAlumno(char *nombreCompleto){
 	alumno_t *alumno = (alumno_t *)malloc(sizeof(alumno_t));
-	char *aux;
+	char *nombre, *apellido1, *apellido2;
 	int result;
-	aux = strtok(nombreCompleto, " ");
-	strcpy(alumno->nombre, aux);
-	aux = strtok(NULL, " ");
-	strcpy(alumno->apellido1, aux);
-	aux = strtok(NULL, " ");
-	strcpy(alumno->apellido2, aux);
-	alumno->numeroAsignaturas = 0;
-	result = FileService_getAlumno(alumno);
+	nombre = strtok(nombreCompleto, " ");
+	apellido1 = strtok(NULL, " ");
+	apellido2 = strtok(NULL, " ");
+	if(isNotNull(nombre) && isNotNull(apellido1) && isNotNull(apellido2)){
+		strcpy(alumno->nombre, nombre);
+		strcpy(alumno->apellido1, apellido1);
+		strcpy(alumno->apellido2, apellido2);
+		alumno->numeroAsignaturas = 0;
+		result = FileService_getAlumno(alumno);
+	}else{
+		result = -1;
+	}
+
 
 	if(result == -1) alumno->id = result;
 	return alumno;
@@ -217,10 +222,12 @@ int FileService_getAlumno(alumno_t * alumno){
 	FILE *fp = fopen(PATH_FILE, "r");
 	FileService_goToTable(fp, TABLA_ALUMNOS);
 	result = FileService_getAlumnoInfo(fp, alumno);
-	FileService_goToTable(fp, TABLA_NOTAS);
-	FileService_getAlumnoNotas(fp, alumno);
-	FileService_goToTable(fp, TABLA_ASIGNATURAS);
-	FileService_getNombreNotas(fp, alumno);
+	if(result != -1){
+		FileService_goToTable(fp, TABLA_NOTAS);
+		FileService_getAlumnoNotas(fp, alumno);
+		FileService_goToTable(fp, TABLA_ASIGNATURAS);
+		FileService_getNombreNotas(fp, alumno);
+	}
 	fclose(fp);
 	return result;
 }
