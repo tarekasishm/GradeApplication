@@ -7,15 +7,6 @@
 
 
 int main(){
-
-//	char opcion[25];
-//	sprintf(opcion, "Nerea Zubillaga Garin");
-//	alumno_t *alumno = DAO_getAlumno(opcion);
-//	for(int i = 0; i < alumno->numeroAsignaturas; i++){
-//		printf("nota %4d Asignatura: %s\n",
-//							alumno->asignatura[i].nota,
-//							alumno->asignatura[i].nombre);
-//	}
 	if(login() != -1) showMenu();
 	return 1;
 }
@@ -34,6 +25,7 @@ void showMenu(){
 		printf("\t 3. Get a subject average grade\n");
 		printf("\t 4. Get subjects average grades\n");
 		printf("\t 5. Get a course average grade\n");
+		printf("\t 6. Delete student\n");
 		printf("\t q. Exit\n");
 		scanf("%c", &arg);
 		while(getchar() != '\n');
@@ -112,6 +104,11 @@ void showMenu(){
 			notaMedia = notaMedia / n;
 			printf("Course average grade %d es %f\n", curso, notaMedia);
 					break;
+		case '6':
+			printf("Student name: ");
+			getOpcion(opcion1);
+			DAO_borratAlumno(opcion1);
+			break;
 		case 'q':
 			break;
 		default:

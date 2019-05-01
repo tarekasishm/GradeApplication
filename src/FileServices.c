@@ -22,9 +22,9 @@
 #define ASIGNATURAS			2
 #define CURSO				3
 #define NOTAS				4
-#define MAX_LEN				128
 #define SHIFT_NOMBRE		1
 #define SHIFT_HEADER		2
+#define BLANK				"                                                                  "
 #define DEBUG
 /*************************************************************
  * LOCAL FUNCTION PROTOTYPES
@@ -40,6 +40,7 @@ void FileService_goToTable(FILE *fp, char const * table);
 int FileService_getAlumnoInfo(FILE *fp, alumno_t *alumno);
 void FileService_getAlumnoNotas(FILE *fp, alumno_t *alumno);
 void FileService_getNombreNotas(FILE *fp, alumno_t *alumno);
+void FileService_borrarAlumno(alumno_t *alumno);
 int isNotNull(char *s);
 void p(char *s);
 /***************************************************************
@@ -78,9 +79,46 @@ asignatura_t **DAO_getAsignatura(){
 	FileService_getAsignaturas(asignaturas);
 	return asignaturas;
 }
+
+void DAO_borratAlumno(char *nombreCompleto){
+	alumno_t *alumno = (alumno_t *)malloc(sizeof(alumno_t));
+	char *nombre, *apellido1, *apellido2;
+	nombre = strtok(nombreCompleto, " ");
+	apellido1 = strtok(NULL, " ");
+	apellido2 = strtok(NULL, " ");
+	if(isNotNull(nombre) && isNotNull(apellido1) && isNotNull(apellido2)){
+		strcpy(alumno->nombre, nombre);
+		strcpy(alumno->apellido1, apellido1);
+		strcpy(alumno->apellido2, apellido2);
+		FileService_borrarAlumno(alumno);
+	}
+}
 /***************************************************************
  * LOCAL FUNCTIONS
  */
+
+void FileService_borrarAlumno(alumno_t *alumno){
+	FILE *fp = fopen(PATH_FILE, "r+");
+	char *nombre, *apellido1, *apellido2;
+	char linea[MAX_LEN], aux[MAX_LEN];
+	do{
+		fgets(linea, MAX_LEN, fp);
+		strcpy(aux, linea);
+		strtok(linea, ", ");
+		nombre = strtok(NULL, ", ");
+		apellido1 = strtok(NULL, ", ");
+		apellido2 = strtok(NULL, ", ");
+		if(isNotNull(nombre) && isNotNull(apellido1) && isNotNull(apellido2)){
+			if(strcmp(nombre, alumno->nombre) ==  0 &&
+				strcmp(apellido1, alumno->apellido1) == 0 &&
+				strcmp(apellido2, alumno->apellido2) == 0){
+				fwrite(BLANK, sizeof(char), 66, fp);
+			}else{
+				fwrite(aux, sizeof(char), strlen(aux), fp);
+			}
+		}
+	}while(feof(fp) == 0);
+}
 
 int FileService_getAsignaturas(asignatura_t **asignaturas){
 	int result = 0;
