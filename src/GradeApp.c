@@ -16,7 +16,7 @@ int main(){
 //							alumno->asignatura[i].nota,
 //							alumno->asignatura[i].nombre);
 //	}
-	showMenu();
+	if(login() != -1) showMenu();
 	return 1;
 }
 
@@ -131,4 +131,22 @@ int buscarAsignatura(char *nombre, alumno_t *alumno){
 		if(strcmp(alumno->asignatura[i].nombre, nombre) == 0) found = i;
 	}
 	return found;
+}
+int login(){
+	int result = -1, intentos = 0;
+	char user[128], paswd[128];
+	do{
+		printf("Introduzca usuario: ");
+		getOpcion(user);
+		if(strcmp(user, "admin") == 0){
+			printf("Introduzca password: ");
+			getOpcion(paswd);
+			if(strcmp(paswd, "admin") != 0){
+				intentos++;
+			}else{
+				result = 0;
+			}
+		}
+	}while(intentos < 3 && strcmp(paswd, "admin") != 0);
+	return result;
 }

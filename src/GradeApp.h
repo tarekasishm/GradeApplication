@@ -11,5 +11,5 @@
 void showMenu();
 void getOpcion(char *s);
 int buscarAsignatura(char *nombre, alumno_t *alumno);
-
+int login();
 #endif /* SRC_GRADEAPP_H_ */
