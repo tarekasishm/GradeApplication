@@ -22,7 +22,7 @@ int main(){
 
 
 void showMenu(){
-	char arg, opcion1[128], opcion2[128];
+	char arg, opcion1[MAX_LEN], opcion2[MAX_LEN];
 	alumno_t *alumno;
 	asignatura_t **asignaturas;
 	int curso = 0, n = 0;
@@ -121,7 +121,7 @@ void showMenu(){
 }
 
 void getOpcion(char *s){
-	fgets(s, 128, stdin);
+	fgets(s, MAX_LEN, stdin);
 	s[strlen(s) - 1] = '\0';
 }
 
@@ -134,7 +134,7 @@ int buscarAsignatura(char *nombre, alumno_t *alumno){
 }
 int login(){
 	int result = -1, intentos = 0;
-	char user[128], paswd[128];
+	char user[MAX_LEN], paswd[MAX_LEN];
 	do{
 		printf("User: ");
 		getOpcion(user);

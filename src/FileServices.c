@@ -22,7 +22,9 @@
 #define ASIGNATURAS			2
 #define CURSO				3
 #define NOTAS				4
-
+#define MAX_LEN				128
+#define SHIFT_NOMBRE		1
+#define SHIFT_HEADER		2
 #define DEBUG
 /*************************************************************
  * LOCAL FUNCTION PROTOTYPES
@@ -94,17 +96,17 @@ int FileService_getAsignaturas(asignatura_t **asignaturas){
 
 void FileService_getAsignaturasInfo(FILE *fp, asignatura_t **asignaturas){
 	char *id, *cursoId, *nombre;
-	char linea[128];
+	char linea[MAX_LEN];
 	int i = 0;
 	do{
-		fgets(linea, 128, fp);
+		fgets(linea, MAX_LEN, fp);
 		id = strtok(linea, ", ");
 		cursoId = strtok(NULL, ", ");
 		nombre = strtok(NULL, "\n");
 		if(isNotNull(id) && isNotNull(cursoId) && isNotNull(nombre)){
 			asignaturas[i]->id = strtol(id, 0, 10);
 			asignaturas[i]->cursoId = strtol(cursoId, 0, 10);
-			strcpy(asignaturas[i]->nombre, nombre + 1);
+			strcpy(asignaturas[i]->nombre, nombre + SHIFT_NOMBRE);
 			i++;
 		}
 	}while(linea[0] != '#' && feof(fp) == 0 && i < MAX_ASIGNATURA);
@@ -112,11 +114,11 @@ void FileService_getAsignaturasInfo(FILE *fp, asignatura_t **asignaturas){
 
 void FileService_getNotaMedia(FILE *fp, asignatura_t **asignaturas){
 	char *alumnoId, *asignaturaId, *nota;
-	char linea[128];
+	char linea[MAX_LEN];
 	int count = 0;
 	for(int i = 0; i < MAX_ASIGNATURA; i++){
 		do{
-			fgets(linea, 128, fp);
+			fgets(linea, MAX_LEN, fp);
 			alumnoId = strtok(linea, ", ");
 			asignaturaId = strtok(NULL, ", ");
 			nota = strtok(NULL, ", ");
@@ -141,11 +143,11 @@ void p(char *s){
 void FileService_goToTable(FILE *fp, char const * table){
 	rewind(fp);
 	int found = 0;
-	char linea[128], *aux;
+	char linea[MAX_LEN], *aux;
 	do{
-		fgets(linea, 128, fp);
+		fgets(linea, MAX_LEN, fp);
 		if(linea[0] == '#'){
-			aux = strtok(linea + 2, " ");
+			aux = strtok(linea + SHIFT_HEADER, " ");
 			if(strcmp(aux, table) == 0) found = 1;
 		}
 	}while(feof(fp) == 0 && found == 0);
@@ -154,10 +156,10 @@ void FileService_goToTable(FILE *fp, char const * table){
 
 int FileService_getAlumnoInfo(FILE *fp, alumno_t *alumno){
 	char *id, *nombre, *apellido1, *apellido2, *email;
-	char linea[128];
+	char linea[MAX_LEN];
 	int found = -1;
 	do{
-		fgets(linea, 128, fp);
+		fgets(linea, MAX_LEN, fp);
 		id = strtok(linea, ", ");
 		nombre = strtok(NULL, ", ");
 		apellido1 = strtok(NULL, ", ");
@@ -179,9 +181,9 @@ int FileService_getAlumnoInfo(FILE *fp, alumno_t *alumno){
 
 void FileService_getAlumnoNotas(FILE *fp, alumno_t *alumno){
 	char *alumnoId, *asignaturaId, *nota;
-	char linea[128];
+	char linea[MAX_LEN];
 	do{
-		fgets(linea, 128, fp);
+		fgets(linea, MAX_LEN, fp);
 		alumnoId = strtok(linea, ", ");
 		asignaturaId = strtok(NULL, ", ");
 		nota = strtok(NULL, ", ");
@@ -200,9 +202,9 @@ void FileService_getAlumnoNotas(FILE *fp, alumno_t *alumno){
 
 void FileService_getNombreNotas(FILE *fp, alumno_t *alumno){
 	char *id, *cursoId, *nombre;
-	char linea[128];
+	char linea[MAX_LEN];
 	do{
-		fgets(linea, 128, fp);
+		fgets(linea, MAX_LEN, fp);
 		id = strtok(linea, ", ");
 		cursoId = strtok(NULL, ", ");
 		nombre = strtok(NULL, "\n");
@@ -210,7 +212,7 @@ void FileService_getNombreNotas(FILE *fp, alumno_t *alumno){
 			for(int i = 0; i < alumno->numeroAsignaturas; i++){
 				if(alumno->asignatura[i].id == strtol(id, 0, 10)){
 					alumno->asignatura[i].cursoId = strtol(cursoId, 0, 10);
-					strcpy(alumno->asignatura[i].nombre, nombre+1);
+					strcpy(alumno->asignatura[i].nombre, nombre + SHIFT_NOMBRE);
 				}
 			}
 		}
