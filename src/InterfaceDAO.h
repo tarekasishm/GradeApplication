@@ -19,7 +19,7 @@
 typedef struct{
 	int id;
 	int cursoId;
-	int nota;
+	float nota;
 	char nombre[MAX_LEN];
 }asignatura_t;
 

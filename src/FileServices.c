@@ -70,7 +70,7 @@ asignatura_t **DAO_getAsignatura(){
 	asignaturas = malloc(MAX_ASIGNATURA*sizeof(asignatura_t *));
 	for(int i = 0; i < MAX_ASIGNATURA; i++){
 		asignaturas[i] = malloc(sizeof(asignatura_t));
-		asignaturas[i]->nota = 0;
+		asignaturas[i]->nota = 0.0;
 		if(asignaturas[i] == NULL) printf("Error al asignar memoria");
 	}
 	FileService_getAsignaturas(asignaturas);
@@ -122,7 +122,7 @@ void FileService_getNotaMedia(FILE *fp, asignatura_t **asignaturas){
 			nota = strtok(NULL, ", ");
 			if(isNotNull(alumnoId) && isNotNull(asignaturaId) && isNotNull(nota)){
 				if(asignaturas[i]->id == strtol(asignaturaId, 0, 10)){
-					asignaturas[i]->nota += strtol(nota, 0, 10);
+					asignaturas[i]->nota += strtof(nota, NULL);
 					count++;
 				}
 			}
@@ -191,7 +191,7 @@ void FileService_getAlumnoNotas(FILE *fp, alumno_t *alumno){
 				alumno->asignatura[alumno->numeroAsignaturas].id =
 						strtol(asignaturaId, 0, 10);
 				alumno->asignatura[alumno->numeroAsignaturas].nota =
-						strtol(nota, 0, 10);
+						strtof(nota, NULL);
 				alumno->numeroAsignaturas++;
 			}
 		}

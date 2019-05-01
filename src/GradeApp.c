@@ -44,7 +44,7 @@ void showMenu(){
 			alumno = DAO_getAlumno(opcion1);
 			if(alumno->numeroAsignaturas != 0){
 				for(int i = 0; i < alumno->numeroAsignaturas; i++){
-					printf("Subject: %18s Grade: %d\n",
+					printf("Subject: %18s Grade: %f\n",
 										alumno->asignatura[i].nombre,
 										alumno->asignatura[i].nota);
 				}
@@ -64,7 +64,7 @@ void showMenu(){
 				printf("Student does not exist\n");
 			}else{
 				if(i != -1){
-					printf("Subject: %s grade: %d\n", alumno->asignatura[i].nombre,
+					printf("Subject: %s grade: %f\n", alumno->asignatura[i].nombre,
 							alumno->asignatura[i].nota);
 				}else{
 					printf("Alumno no matriculado de la asignatura\n");
@@ -78,7 +78,7 @@ void showMenu(){
 			getOpcion(opcion2);
 			for(int i = 0; i < MAX_ASIGNATURA; i++){
 				if(strcmp(opcion2, asignaturas[i]->nombre) == 0){
-					printf("Average grade: %2d Subject: %s\n", asignaturas[i]->nota, asignaturas[i]->nombre);
+					printf("Average grade: %2f Subject: %s\n", asignaturas[i]->nota, asignaturas[i]->nombre);
 				}
 			}
 			for(int i = 0; i < MAX_ASIGNATURA; i++){
@@ -89,7 +89,7 @@ void showMenu(){
 		case '4':
 			asignaturas = DAO_getAsignatura();
 			for(int i = 0; i < MAX_ASIGNATURA; i++){
-				printf("Average grade: %2d Subject: %s\n", asignaturas[i]->nota, asignaturas[i]->nombre);
+				printf("Average grade: %2f Subject: %s\n", asignaturas[i]->nota, asignaturas[i]->nombre);
 			}
 			for(int i = 0; i < MAX_ASIGNATURA; i++){
 				free(asignaturas[i]);
