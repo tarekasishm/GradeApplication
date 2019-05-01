@@ -8,6 +8,8 @@
 #ifndef SRC_GRADEAPP_H_
 #define SRC_GRADEAPP_H_
 
-
+void showMenu();
+void getOpcion(char *s);
+int buscarAsignatura(char *nombre, alumno_t *alumno);
 
 #endif /* SRC_GRADEAPP_H_ */

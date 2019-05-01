@@ -9,7 +9,9 @@
 #define SRC_INTERFACEDAO_H_
 
 //TODO cambiar arrays por listas enlazadas.
+//TODO Darle una pensada a la estructura de datos.
 
+#define FILE_PATH "../src/datos.txt"
 
 #define MAX_LEN			25
 #define MAX_ASIGNATURA	10
@@ -40,7 +42,7 @@ typedef struct{
 
 alumno_t *DAO_getAlumno(char *nombreCompleto);
 alumno_t DAO_getCurso(char *curso);
-alumno_t DAO_getAsignatura(char *asignatura);
+asignatura_t **DAO_getAsignatura();
 
 
 
